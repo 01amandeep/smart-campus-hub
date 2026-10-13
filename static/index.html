@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Campus Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ============ AUTH ============ -->
+  <section id="auth" class="auth-wrap">
+    <div class="auth-card">
+      <div class="logo">🎓</div>
+      <h1>Smart Campus Hub</h1>
+      <p class="muted">Report issues. Track progress. Never miss a notice.</p>
+
+      <form id="loginForm">
+        <input id="loginEmail" type="email" placeholder="College e-mail" required autocomplete="username">
+        <input id="loginPass" type="password" placeholder="Password" required autocomplete="current-password">
+        <button class="btn primary" type="submit">Sign in</button>
+        <p class="link-row">New here? <a href="#" data-show="signupForm">Create account</a></p>
+      </form>
+
+      <form id="signupForm" class="hidden">
+        <input id="suName" type="text" placeholder="Full name" required>
+        <input id="suEmail" type="email" placeholder="College e-mail" required>
+        <input id="suPass" type="password" placeholder="Password (8+ chars, upper, lower, number)" required>
+        <button class="btn primary" type="submit">Create account</button>
+        <p class="link-row">Have an account? <a href="#" data-show="loginForm">Sign in</a></p>
+      </form>
+      <div id="authMsg" class="msg"></div>
+    </div>
+  </section>
+
+  <!-- ============ APP ============ -->
+  <div id="app" class="hidden">
+    <header class="topbar">
+      <div class="brand">🎓 Smart Campus Hub</div>
+      <nav id="nav">
+        <button data-tab="notices" class="active">📢 Notices</button>
+        <button data-tab="new">📝 New complaint</button>
+        <button data-tab="mine">📂 My complaints</button>
+        <button data-tab="admin" id="adminTab" class="hidden">🛠 Admin</button>
+      </nav>
+      <div class="user"><span id="whoami"></span> <button id="logout" class="btn ghost">Logout</button></div>
+    </header>
+
+    <main>
+      <section id="tab-notices" class="tab">
+        <h2>Campus notice board</h2>
+        <div id="noticeList" class="grid"></div>
+      </section>
+
+      <section id="tab-new" class="tab hidden">
+        <h2>Report an issue</h2>
+        <form id="complaintForm" class="card form">
+          <label>Title<input id="cTitle" maxlength="120" required placeholder="e.g. Wi-Fi not working in Block C"></label>
+          <label>Location<input id="cLocation" maxlength="120" placeholder="Block / room / hostel"></label>
+          <label>Describe the problem
+            <textarea id="cDesc" rows="5" maxlength="2000" required placeholder="What happened? Since when? Who is affected?"></textarea></label>
+          <label>Photo / PDF (optional, max 5 MB)<input id="cFile" type="file" accept="image/png,image/jpeg,application/pdf"></label>
+          <button class="btn primary" type="submit">Submit complaint</button>
+          <div id="complaintMsg" class="msg"></div>
+        </form>
+      </section>
+
+      <section id="tab-mine" class="tab hidden">
+        <h2>My complaints</h2>
+        <div id="myList" class="grid"></div>
+      </section>
+
+      <section id="tab-admin" class="tab hidden">
+        <h2>Admin console</h2>
+        <div class="card form">
+          <h3>Post a notice</h3>
+          <input id="nTitle" placeholder="Notice title" maxlength="150">
+          <textarea id="nContent" rows="3" placeholder="Notice text" maxlength="3000"></textarea>
+          <select id="nAudience"><option value="ALL">Everyone</option><option value="STUDENTS">Students</option><option value="STAFF">Staff</option></select>
+          <button id="postNotice" class="btn primary">Publish &amp; e-mail</button>
+          <div id="noticeMsg" class="msg"></div>
+        </div>
+        <div class="filters">
+          <select id="statusFilter">
+            <option value="">All statuses</option><option>OPEN</option><option>IN_PROGRESS</option>
+            <option>RESOLVED</option><option>REJECTED</option>
+          </select>
+          <button id="refreshAdmin" class="btn ghost">↻ Refresh</button>
+          <div id="stats" class="stats"></div>
+        </div>
+        <div id="adminList" class="grid"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
